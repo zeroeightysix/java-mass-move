@@ -5,9 +5,9 @@ import java.util.function.UnaryOperator;
 public enum ReferenceProcessor {
 
     REMOVE_SNAKE_CASE,
-    SNAKE_CASE_TO_TITLE_CASE,
-    SNAKE_CASE_TO_NORMAL_CASE,
-    TITLE_CASE_TO_NORMAL_CASE,
+    TITLE_CASE,
+    NORMAL_CASE,
+    LOWER_CASE_FIRST,
     UPPERCASE,
     LOWERCASE,
     REMOVE_SPACES;
@@ -22,7 +22,7 @@ public enum ReferenceProcessor {
         }
         return builder.toString();
     };
-    private static final UnaryOperator<String> titleToLower = s -> {
+    private static final UnaryOperator<String> lowerFirst = s -> {
         boolean space = true;
         StringBuilder builder = new StringBuilder();
         for (char c : s.toCharArray()) {
@@ -44,9 +44,9 @@ public enum ReferenceProcessor {
 
     static {
         REMOVE_SNAKE_CASE.unaryOperator = removeSnake;
-        SNAKE_CASE_TO_TITLE_CASE.unaryOperator = merge(removeSnake, toTitleCase);
-        SNAKE_CASE_TO_NORMAL_CASE.unaryOperator = merge(removeSnake, toNormalCase);
-        TITLE_CASE_TO_NORMAL_CASE.unaryOperator = merge(titleToLower, toNormalCase);
+        TITLE_CASE.unaryOperator = toTitleCase;
+        NORMAL_CASE.unaryOperator = toNormalCase;
+        LOWER_CASE_FIRST.unaryOperator = lowerFirst;
         UPPERCASE.unaryOperator = String::toUpperCase;
         LOWERCASE.unaryOperator = String::toLowerCase;
         REMOVE_SPACES.unaryOperator = s -> s.replaceAll(" ", "");

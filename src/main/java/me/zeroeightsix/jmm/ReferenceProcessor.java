@@ -4,6 +4,7 @@ import java.util.function.UnaryOperator;
 
 public enum ReferenceProcessor {
 
+    REMOVE_SNAKE_CASE,
     SNAKE_CASE_TO_TITLE_CASE,
     SNAKE_CASE_TO_NORMAL_CASE,
     TITLE_CASE_TO_NORMAL_CASE,
@@ -42,6 +43,7 @@ public enum ReferenceProcessor {
     UnaryOperator<String> unaryOperator;
 
     static {
+        REMOVE_SNAKE_CASE.unaryOperator = removeSnake;
         SNAKE_CASE_TO_TITLE_CASE.unaryOperator = merge(removeSnake, toTitleCase);
         SNAKE_CASE_TO_NORMAL_CASE.unaryOperator = merge(removeSnake, toNormalCase);
         TITLE_CASE_TO_NORMAL_CASE.unaryOperator = merge(titleToLower, toNormalCase);

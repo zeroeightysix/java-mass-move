@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'me.zeroeightsix'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'info.picocli', name: 'picocli', version: '3.7.0'
+    compile 'org.fusesource.jansi:jansi:1.17.1'
+}
+
+jar {
+    archiveName = "jmm.jar"
+
+    manifest {
+        attributes 'Main-Class': 'me.zeroeightsix.jmm.JMM'
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
